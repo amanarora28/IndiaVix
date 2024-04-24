@@ -5,8 +5,8 @@
 ## To run, copy vixnearterm.dat and vixnextterm.dat to the same directory as vix.py, then run python3 vix.py
 ##
 ##inputs
-rates=[0.0728, 0.07] 				#risk-free interest rates (whitepaper, p5)
-datafiles=['./indiavixnear_04_24.dat', './indiavixnext_05_24.dat']	#SPX Option Data Used in Sample VIX Index Calculation (whitepaper, appendix A)
+rates=[0.0390, 0.0465] 				#risk-free interest rates (whitepaper, p5)
+datafiles=['./indiavixnearterm.dat', './indiavixnextterm.dat']	#SPX Option Data Used in Sample VIX Index Calculation (whitepaper, appendix A)
 verbose=2						#0 for just the result, 1 for some output, 2 for more output
 
 import math
@@ -18,12 +18,12 @@ for j in (0,1):
 	for line in f:
 		ar=[]
 		for v in line.strip().split("\t"):
-			ar.append(float(v.replace(",","")))
+			ar.append(float(v.replace(",", "")))
 		quotedata[j].append(ar)
 	f.close()
 
 #get minutes and years to near term and next term expiration dates (p5)
-Nt=[510+930+0, 510+930+50400]		#minutes
+Nt=[510+930+11520, 510+930+51840]		#minutes
 T=[Nt[0]/(60*24*365), Nt[1]/(60*24*365)]	#years
 
 if(verbose>=1):
@@ -49,7 +49,7 @@ F=[None, None]
 # 			Fput=(d[3]+d[4])/2
 # 	F[j]=Fstrike + math.exp(rates[j]*T[j]) * (Fcall - Fput)
 
-F = [22420, 22523]
+F = [5129, 5115]
 if(verbose>=1): print('F:', F)
 
 
